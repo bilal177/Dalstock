@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Item
+    public class Item
     {
-        private int ItemId;
-        private string Name;
-        private int Amount;
+        [Key]
+        public int ItemId { get; set; }
+        public string Name { get; set; }
+        public int Amount { get; set; }
     }
 }

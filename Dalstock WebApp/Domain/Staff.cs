@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Staff
+    public class Staff
     {
-        private int StaffId;
-        private string FirstName;
-        private string LastName;
+        [Key]
+        public int StaffId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }

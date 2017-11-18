@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Deposit
+    public class Deposit
     {
-        private int DepositId;
-        private int Amount;
-        private DateTime dateTime;
-        private ICollection<Staff> Staff;
+        [Key]
+        public int DepositId { get; set; }
+        public int Amount { get; set; }
+        public DateTime dateTime { get; set; }
+        public ICollection<Staff> Staff { get; set; }
     }
 }

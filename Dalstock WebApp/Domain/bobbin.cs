@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Bobbin : Item
+    public class Bobbin : Item
     {
-        private int StartAmount;
-        private int EndAmount;
+        public int StartAmount { get; set; }
+        public int EndAmount { get; set; }
     }
 }

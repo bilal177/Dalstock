@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,7 @@ namespace Dalstock_WebApp.Controllers
 {
     public class HomeController : Controller
     {
+        DalstockDbContext ctx = new DalstockDbContext();
         public ActionResult Index()
         {
             return View();

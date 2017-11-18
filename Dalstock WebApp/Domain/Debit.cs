@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Debit
+    public class Debit
     {
-        private int DebitId;
-        private int Amount;
-        private DateTime dateTime;
-        private ICollection<Workplace> Workplaces;
-        private ICollection<Staff> Staff;
+        [Key]
+        public int DebitId { get; set; }
+        public int Amount { get; set; }
+        public DateTime dateTime { get; set; }
+        public ICollection<Workplace> Workplaces { get; set; }
+        public ICollection<Staff> Staff { get; set; }
     }
 }

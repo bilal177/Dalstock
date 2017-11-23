@@ -10,9 +10,11 @@ namespace Domain
     public class Workplace
     {
         [Key]
-        public int WorkplaceId { get; set; }
+        public string WorkplaceId { get; set; }
         public string Address { get; set; }
         public int Zip { get; set; }
         public string City { get; set; }
+        public virtual ICollection<Debit> Debits { get; set; }
+        public virtual ICollection<BobbinDebit> BobbinDebits { get; set; }
     }
 }

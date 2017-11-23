@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bobbin.cs" />
+    <Compile Include="BobbinDebit.cs" />
+    <Compile Include="CableType.cs" />
     <Compile Include="Debit.cs" />
     <Compile Include="Deposit.cs" />
     <Compile Include="Item.cs" />

@@ -54,16 +54,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DalstockDbContext.cs" />
-    <Compile Include="DalstockDbInitializer.cs" />
-    <Compile Include="Migrations\201711182127388_initial.cs" />
-    <Compile Include="Migrations\201711182127388_initial.Designer.cs">
-      <DependentUpon>201711182127388_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\ItemRepository.cs" />
+    <Compile Include="Repository\ItemRepositoryService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -71,11 +69,6 @@
       <Project>{0c3057da-9ab3-45f7-9b18-a32c7f302a67}</Project>
       <Name>Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711182127388_initial.resx">
-      <DependentUpon>201711182127388_initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

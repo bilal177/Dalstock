@@ -10,8 +10,11 @@ namespace Domain
     public class Item
     {
         [Key]
-        public int ItemId { get; set; }
-        public string Name { get; set; }
+        public string ItemId { get; set; }
+        [Required]
+        public string Description { get; set; }
+        [Required]
         public int Amount { get; set; }
+        public string Image { get; set; }
     }
 }

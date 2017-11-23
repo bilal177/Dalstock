@@ -10,7 +10,7 @@ namespace Domain
     public class Staff
     {
         [Key]
-        public int StaffId { get; set; }
+        public string StaffId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
     }

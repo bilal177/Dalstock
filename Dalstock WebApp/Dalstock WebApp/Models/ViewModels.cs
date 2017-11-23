@@ -14,7 +14,6 @@ namespace Dalstock_WebApp.Models
         public List<Workplace> Workplaces { get; set; }
         [Required]
         public virtual List<Item> Items { get; set; }
-        public virtual List<Debit> DebitItemsToUpdate { get; set; }
-
     }
+
 }

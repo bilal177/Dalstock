@@ -98,11 +98,5 @@ namespace Dalstock_WebApp.Controllers
             var workplace = manager.GetWorkplace(id);
             return PartialView("_WorkplaceDetail",workplace);
         }
-        [HttpGet]
-        public PartialViewResult GetItem(string id)
-        {
-            var item = manager.GetItem(id);
-            return PartialView("_ItemDetails",item);
-        }
     }
 }

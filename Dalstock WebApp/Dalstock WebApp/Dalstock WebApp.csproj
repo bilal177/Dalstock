@@ -292,7 +292,7 @@
     <Content Include="Views\Items\Edit.cshtml" />
     <Content Include="Views\Debit\Index.cshtml" />
     <Content Include="Views\Shared\_WorkplaceDetail.cshtml" />
-    <Content Include="Views\Shared\_ItemDetails.cshtml" />
+    <Content Include="Views\Debit\_DebitItemsToUpdate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj">

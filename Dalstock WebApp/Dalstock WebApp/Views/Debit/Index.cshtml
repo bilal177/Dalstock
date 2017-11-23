@@ -31,7 +31,8 @@
                     <p>
                         Op deze pagina kunt u ingeven welke materialen op welke werven zijn verbruikt.
                     </p>
-                    <form id="form" action="#" class="wizard-big">
+                    @using (Html.BeginForm("CreateDebitItems", "Debit", FormMethod.Post, new { enctype = "multipart/form-data", @class = "wizard-big", @id = "form" }))
+                    {
                         <h1>Werf</h1>
                         <fieldset>
                             <h2>Werf</h2>
@@ -41,7 +42,7 @@
                                         <label>Vul het dossiernummer in</label>
                                         <div>
                                             @Html.DropDownListFor(m => m.Workplaces,
-                                           new SelectList(Model.Workplaces, "WorkplaceId", "WorkplaceId"), "Kies" ,new { @class= "chosen-select", @id="workplaceDropdown" })
+                            new SelectList(Model.Workplaces, "WorkplaceId", "WorkplaceId"), "Kies", new { @class = "chosen-select", @id = "workplaceDropdown" })
                                         </div>
                                         
                                     </div>
@@ -50,7 +51,6 @@
                             <div class="row">
                                 <div class="col-lg-8">
                                     <div id="divPartialView" class="form-group">
-
                                     </div>
                                 </div>
                             </div>
@@ -64,68 +64,48 @@
                                         <label>Materiaalnummer <span id="itemNrError" class="field-validation-error"></span></label>
                                         <div>
                                             @Html.DropDownListFor(m => m.SelectedItem,
-                                           new SelectList(Model.Items, "ItemId", "ItemId",1), "Kies", new { @class = "chosen-select form-control", @id = "ItemsDropdown",
-                                           @onchange="SelectedItem = this.value;"})
+                            new SelectList(Model.Items, "ItemId", "ItemId", 1), "Kies", new
+                            {
+                                @class = "chosen-select form-control",
+                                @id = "ItemsDropdown",
+                                @onchange = "SelectedItem = this.value;"
+                            })
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label>Aantal</label>
+                                        <label>Aantal <span id="amountError" class="field-validation-error"></span></label>
                                         <input id="amount" name="amount" type="number" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-lg-1">
                                     <div class="form-group">
                                         <label>Toevoegen</label>
-                                        <button type="button" id="btnAdd" class="btn btn-sm btn-primary classAdd">Voeg toe</button>
+                                        <button type="button" id="btnAdd" class="btn btn-sm btn-primary">Voeg toe</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <div class="ibox-content">
-                                        <table class="table" id="maintable">
-                                            <thead>
-                                                <tr>
-                                                    <th>MateriaalNr</th>
-                                                    <th>Omschrijving</th>
-                                                    <th>Aantal</th>
-                                                    <th>Verwijderen</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="data-contact-person"></tr>
-                                            </tbody>
-                                        </table>
+                                    <div class="ibox-content" id="divPartialView2">
+                                        
                                         </div>
                                     </div>
                                 </div>
                         </fieldset>                     
-                        <h1>Finish</h1>
+                        <h1>Opslaan</h1>
                         <fieldset>
-                            <h2>Overzicht verbruikte materialen</h2>
+                            <h2>Wilt u deze wijzigingen doorvoeren?</h2>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <div class="ibox-content">
-                                        <table class="table" id="overviewTable">
-                                            <thead>
-                                                <tr>
-                                                    <th>MateriaalNr</th>
-                                                    <th>Omschrijving</th>
-                                                    <th>Aantal</th>
-                                                    <th>Verwijderen</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                
-                                            </tbody>
-                                        </table>
+                                    <div class="ibox-content" id="overviewPartialView">
+                                        
                                     </div>
                                 </div>
                             </div>
                         </fieldset>
-                    </form>
+                    }
                 </div>
             </div>
         </div>
@@ -152,11 +132,6 @@
             <script type="text/javascript">
 
                 $(document).ready(function () {
-
-
-                    $(document).on("click", ".remove", function () {
-                        $(this).closest("tr").remove();
-                    });
                     $("#wizard").steps();
                     $("#form").steps({
                         bodyTag: "fieldset",
@@ -165,27 +140,11 @@
                             if (newIndex === 1 && $("#workplaceDropdown").val() == "") {
                                 return false;
                             }
+                            if (newIndex == 2 && (isNaN(parseFloat($("#ItemsDropdown").val())) || !isFinite($("#ItemsDropdown").val()) || $("#amount").val() == "")) {
+                                return false
+                            }
                             if (newIndex == 2) {
-                                alert($("#maintable >tbody>tr").length);
-                                if ($("#maintable >tbody>tr").length <= 1) {
-                                    return false;
-                                } else {
-                                    $("tr.data-contact-person").each(function () {
-                                        var itemId = $(this).find("input.f-name01").val();
-                                        var descr = $(this).find("input.l-name01").val();
-                                        var rowAmount = $(this).find("input.rowAmount").val();
-                                        if (rowAmount != null) {
-                                            var rowCount = $('.data-contact-person').length + 1;
-                                            var contactdiv = '<tr class="data-contact-person">' +
-                                                '<td><p type="text" name="f-name' + rowCount + '" class="form-control f-name01">' + itemId + '</p></td>' +
-                                                '<td><p type="text" name="l-name' + rowCount + '" class="form-control l-name01">' + descr + '</p></td>' +
-                                                '<td><input type="number"' + rowCount + ' value="' + rowAmount + '" class="form-control rowAmount"/></td>' +
-                                                '<td><button id="btnDelete" class="remove btn btn-danger btn-md fa fa-remove"></button></td>' +
-                                                '</tr>';
-                                            $('#overviewTable').append(contactdiv); // Adding these controls to Main table class
-                                        }
-                                    });
-                                }
+                                detailspage();
                             }
                             // Always allow going backward even if the current step contains invalid fields!
                             if (currentIndex > newIndex) {
@@ -266,37 +225,48 @@
                           }
                       });
                     });
-                    $(document).on("click", ".classAdd", function () {
-                        var itemid = $('#ItemsDropdown').val();
-                        if ((!isNaN(parseFloat(itemid)) && isFinite(itemid)) && $("#amount").val() != "") {
+                    $("#btnAdd").click(function () {
+                        var itemId = $("#ItemsDropdown").val();
+                        var amount = $("#amount").val();
+                        var workplaceId = $("#workplaceDropdown").val();
+                        if ((!isNaN(parseFloat(itemId)) && isFinite(itemId)) && amount != "") {
                             $.ajax({
-                            url: "@Url.Action("addDebitItem", "Debit")",
-                            data: { itemid: $('#ItemsDropdown').val() },
-                          type: "Get",
-                          dataType: "html",
-                          success: function (data) {
-                              var rowCount = $('.data-contact-person').length + 1;
-                              var item = JSON.parse(data);
-                              var contactdiv = '<tr class="data-contact-person">' +
-                                  '<td><p type="text" name="f-name' + rowCount + '" class="form-control f-name01">' + item.ItemId + '</p></td>' +
-                                  '<td><p type="text" name="l-name' + rowCount + '" class="form-control l-name01">' + item.Description + '</p></td>' +
-                                  '<td><input type="number"' + rowCount + ' value="' + $("#amount").val() + '" class="form-control rowAmount"/></td>' +
-                                  '<td><button id="btnDelete" class="remove btn btn-danger btn-md fa fa-remove"></button></td>' +
-                                  '</tr>';
-                              $('#maintable').append(contactdiv); // Adding these controls to Main table class
-                              $("#itemNrError").text("");
-                          },
-                          error: function (request) {
-                              alert(request.responseText);
-                          }
-                      });
+                                url: "@Url.Action("AddDebitItem", "Debit")",
+                                data: { id: itemId, amount: amount, workplaceId: workplaceId },
+                                type: "Get",
+                                dataType: "html",
+                                success: function (data) {
+                                    //Whatever result you have got from your controller with html partial view replace with a specific html.
+                                    $("#divPartialView2").html(data);
+                                    $("#itemNrError").text("");
+                                    $("#amountError").text("");
+                                },
+                                error: function (request) {
+                                    alert(request.responseText);
+                                }
+                            });
                         } else {
                             $("#form").validate().element("#amount");
-                            $("#itemNrError").text("This field is required.");
+                            $("#itemNrError").text("Dit veld mag niet leeg zijn.");
+                            $("#amountError").text("Dit veld mag niet leeg zijn.");
                         }
-
                     });
                 });
+                function detailspage() {
+                    
+                     $.ajax({
+                                url: "@Url.Action("GetToAddDebitList", "Debit")",
+                                type: "Get",
+                                dataType: "html",
+                                success: function (data) {
+                                    //Whatever result you have got from your controller with html partial view replace with a specific html.
+                                    $("#overviewPartialView").html(data);
+                                },
+                                error: function (request) {
+                                    alert(request.responseText);
+                                }
+                            });
+                }
             </script>
 
             }

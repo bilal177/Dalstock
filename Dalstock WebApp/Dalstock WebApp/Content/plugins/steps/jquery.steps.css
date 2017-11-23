@@ -261,7 +261,16 @@
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
-
+.wizard > .actions ul li:last-child a {
+    background: #cc150f;
+    color: #fff;
+    display: block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
 .wizard > .actions .disabled a,
 .wizard > .actions .disabled a:hover,
 .wizard > .actions .disabled a:active
